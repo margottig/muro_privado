@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1> REGISTRO</h1>
+    <!-- <h1> REGISTRO</h1>
     <form action="/nuevousuario" method="post">
         <label for="nombre"> Nombre</label>
         <input type="text" name="nombre" id="nombre"><br>
@@ -20,7 +20,100 @@
         <label for="password"> Contraseña</label>
         <input type="text" name="password" id="password"><br>
         <input type="submit" value="Enviar Formulario">
-    </form>
+    </form> -->
+
+
+    <div class="container">
+        <main>
+          <header class="pb-3 mb-4 border-bottom">
+            <span class="fs-2">Muro Privado</span>
+          </header>
+          <div class="row g-1">
+            <!-- Log In -->
+            <div class="col">
+              <h4>Login</h4>
+              <form action="/login" method="post">
+              {% with messages = get_flashed_messages() %} 
+                  <div class="col-10">
+                      <label class="form-label" for="log_email" >Email</label>
+                      <input class="form-control" type="text"  id="log_email" name="email" placeholder="{{session['log_email']}}" required>
+                      {% if "logmail" in messages %} 
+                     <p class="text-danger">Invalid email</p>
+                      {% endif %} 
+                  </div><br>
+                  <div class="col-10">
+                      <label class="form-label" for="log_psw" >Password</label>
+                      <input class="form-control" type="password"  id="log_psw" name="password" >
+                      {% if "logpsw" in messages %} 
+                     <p class="text-danger">You could not be logged in</p>
+                      {% endif %} 
+                </div><br>
+                {% endwith %}
+                  <button class="col-3 btn btn-success btn-lg" type="submit">Login!</button>
+              </form>
+            </div>
+  
+            <div class="col-2"></div>
+            <!-- REGISTRATION -->
+            <div class="col">
+              <h4 class="mb-3">Registration</h4>
+              <form novalidate action="/nuevousuario" method="post">
+              {% with messages = get_flashed_messages() %}  
+                <div class="row g-3">
+                  <div class="col-8">
+                    <label class="form-label" for="first_name" >Nombre</label>
+                    <input class="form-control" type="text" id="first_name" name="nombre" value="{{session['first_name']}}">
+                      {% if "Name" in messages %} 
+                     <p class="text-danger">Name must contain at least 2 characters</p>
+                      {% endif %} 
+                      {% if "namerex" in messages %} 
+                      <p class="text-danger">Name must only include letters</p>
+                       {% endif %}
+                  </div>
+                  <div class="col-8">
+                    <label class="form-label" for="last_name" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="last_name" name="apellido" value="{{session['last_name']}}">
+                    {% if "Last" in messages %} 
+                    <p class="text-danger">Last name must contain at least 2 characters</p>
+                    {% endif %} 
+                  </div>
+                  <div class="col-8">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{session['email']}}">
+                    {% if "email" in messages %} 
+                    <p class="text-danger">Invalid email address</p>
+                    {% endif %}
+                  </div>
+                  <div class="col-8">
+                    <label class="form-label" for="password" >Password</label>
+                    <input class="form-control" type="password" id="password" name="password" value="{{session['password']}}">
+                    {% if "psw1" in messages %} 
+                    <p class="text-danger">Password must have at least 8 characters</p>
+                    {% endif %}
+                    {% if "psw2" in messages %} 
+                    <p class="text-danger">Don't forget to include at least one number and one capital letter</p>
+                     {% endif %}
+                  </div>
+                  <div class="col-8">
+                    <label class="form-label" for="confirm_psw" >Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_psw" name="confirm_psw">
+                    {% if "confirm" in messages %} 
+                    <p class="text-danger">Password doesn't match</p>
+                    {% endif %}
+                  </div>
+                  {% endwith %}
+                 <button class="col-5 btn btn-success btn-lg" type="submit">Register!</button>
+              </form>
+            </div>
+            <div class="col-lg-1"></div>
+          </div>
+        </main>
+      
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+          <p class="mb-1">Coding is Fun!</p>
+        </footer>
+      </div>
+
     
 </body>
 </html>
