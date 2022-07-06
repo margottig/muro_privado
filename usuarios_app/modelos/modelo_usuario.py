@@ -1,4 +1,4 @@
-from unittest import result
+from flask import request, flash
 from usuarios_app.config.mysqlconnection import connectToMySQL
 
 class Usuario:
@@ -44,3 +44,11 @@ class Usuario:
         resultado = connectToMySQL('muro_privado').query_db(query, data)
         print("USUARIO LOGEADO", resultado)
         return resultado
+
+    @staticmethod
+    def validaciones_formulario():
+        is_valid=True
+        if request.form['password'] != request.form['confirm_psw']:
+            flash ("Contrasenias no coinciden", "psw")
+            is_valid = False
+        return is_valid

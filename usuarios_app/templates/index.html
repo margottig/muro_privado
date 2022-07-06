@@ -57,6 +57,13 @@
             <!-- REGISTRATION -->
             <div class="col">
               <h4 class="mb-3">Registration</h4>
+              {% with messages = get_flashed_messages() %}    
+                {% if messages %}                            
+                    {% for message in messages %}            
+                        <p>{{message}}</p>                   
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
               <form novalidate action="/nuevousuario" method="post">
               {% with messages = get_flashed_messages() %}  
                 <div class="row g-3">
@@ -90,14 +97,14 @@
                     {% if "psw1" in messages %} 
                     <p class="text-danger">Password must have at least 8 characters</p>
                     {% endif %}
-                    {% if "psw2" in messages %} 
-                    <p class="text-danger">Don't forget to include at least one number and one capital letter</p>
+                    {% if "psw" in messages %} 
+                    <p class="text-danger">PSW NO COINCIDE</p>
                      {% endif %}
                   </div>
                   <div class="col-8">
                     <label class="form-label" for="confirm_psw" >Confirm Password</label>
                     <input type="password" class="form-control" id="confirm_psw" name="confirm_psw">
-                    {% if "confirm" in messages %} 
+                    {% if "psw" in messages %} 
                     <p class="text-danger">Password doesn't match</p>
                     {% endif %}
                   </div>

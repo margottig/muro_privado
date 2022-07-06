@@ -27,17 +27,19 @@
                     <h2>Total de Mensajes para ti</h2>
                     <hr class="mt-0">
                     <table class="table">
+                        {% for mensaje in mensajes_para_mi %}
                         <thead>
-                            <th>dice</th>
+                            <th>{{mensaje.nombre}}</th>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Mensaje</td>
+                                <td>{{mensaje.contenido}}</td>
                                 <td>
-                                    <a href="">link</a>
+                                    <a href="/borrarmensaje/{{mensaje.id}}">Borrar</a>
                                 </td>
                             </tr>
                         </tbody>
+                       {% endfor %} 
                     </table>
                 </div>
 
@@ -47,9 +49,9 @@
                 <h2>Enviar Mensajes</h2>
                 <hr class="mt-0">
                 {% for usuario in todos_usuarios  %}
-                <form action="" method="post" class="row">
+                <form action="/enviarmensaje/{{usuario.id}}" method="post" class="row">
                     <label for="message" class="form-label col-3"> {{ usuario.nombre  }}</label>
-                    <textarea placeholder="Escribe tu mensaje aqui" class="form-label col-6" name="" id="" cols="30" rows="10"></textarea>
+                    <textarea placeholder="Escribe tu mensaje aqui" class="form-label col-6" name="mensaje" id="" cols="30" rows="10"></textarea>
                     <button class="btn btn-outline-secondary" type="submit">Enviar</button>
                 </form>
                 {% endfor %}
