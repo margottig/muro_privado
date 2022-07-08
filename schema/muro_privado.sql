@@ -18,12 +18,14 @@ USE `muro_privado` ;
 -- -----------------------------------------------------
 -- Table `muro_privado`.`usuarios`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `muro_privado`.`usuarios` ;
+
 CREATE TABLE IF NOT EXISTS `muro_privado`.`usuarios` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NULL,
   `apellido` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(100) NULL,
   `created_at` DATETIME NULL DEFAULT NOW(),
   `updated_at` DATETIME NULL DEFAULT NOW(),
   PRIMARY KEY (`id`))
@@ -33,10 +35,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `muro_privado`.`mensajes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `muro_privado`.`mensajes` ;
+
 CREATE TABLE IF NOT EXISTS `muro_privado`.`mensajes` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `contenido` VARCHAR(255) NULL,
-  `mensajescol` VARCHAR(45) NULL,
   `de_usuario_id` INT NOT NULL,
   `para_ususario_id` INT NOT NULL,
   `created_at` DATETIME NULL DEFAULT NOW(),

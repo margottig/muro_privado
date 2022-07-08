@@ -1,5 +1,5 @@
 from usuarios_app.config.mysqlconnection import connectToMySQL
-
+from flask import flash
 class Mensaje:
     def __init__(self, data):
         self.id = data['id']
@@ -33,3 +33,10 @@ class Mensaje:
         """
         resultado = connectToMySQL('muro_privado').query_db(query, data)
         return resultado
+
+    @staticmethod
+    def validaciones_formulario_mensajes(formulario):
+        is_valid=True
+        if len(formulario['mensaje']) < 5:
+            flash("Escribe algo más", 'errorNombre' )
+            is_valid = False
