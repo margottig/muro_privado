@@ -15,7 +15,7 @@
             <header class="d-flex flex-wrap justify-content-center">
                 <span class="fs-4 col-10">Muro Privado</span>
                 <nav class="d-inline-flex">
-                    <a href="" class="me-5 text-decoration-none">Bienvenido {{  usuarioLogeado[0].nombre }}</a>
+                    <a href="" class="me-5 text-decoration-none">Bienvenido {{  usuarioLogeado.nombre }}</a>
                     <a href="/logout"  class="text-decoration-none">Log Out</a>
                 </nav>
             </header>
@@ -29,7 +29,7 @@
                     <table class="table">
                         {% for mensaje in mensajes_para_mi %}
                         <thead>
-                            <th>{{mensaje.nombre}}</th>
+                            <th>{{mensaje.nombre}} {{mensaje.tiempo()}}</th>
                         </thead>
                         <tbody>
                             <tr>

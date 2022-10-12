@@ -5,12 +5,13 @@ import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 PSW_REGEX =  re.compile(r'^[A-Za-z0-9@#$%^&+=]{8,}$')
 class Usuario:
-    def __init__(self, nombre, apellido, email, password):
-        self.nombre=nombre
-        self.apellido = apellido
-        self.email = email
-        self.password = password
-
+    def __init__(self, diccionario):
+        self.id = diccionario['id']
+        self.nombre=diccionario['nombre']
+        self.apellido = diccionario['apellido']
+        self.email = diccionario['email']
+        self.password = diccionario['password']
+    
     @classmethod
     def nuevoUsuario(cls, data):
         query = """
@@ -28,7 +29,9 @@ class Usuario:
         """
         resultado = connectToMySQL('muro_privado').query_db(query, data)
         print(resultado, "/="*5)
-        return cls(resultado)
+        if len(resultado) < 1:
+            return False
+        return cls(resultado[0])
         
     @classmethod
     def todos_usuarios_excepto_yo(cls, data):
@@ -46,7 +49,7 @@ class Usuario:
         """
         resultado = connectToMySQL('muro_privado').query_db(query, data)
         print("USUARIO LOGEADO", resultado)
-        return resultado
+        return cls(resultado[0])
 
     @staticmethod
     def validaciones_formulario(formulario):

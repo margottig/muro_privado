@@ -62,14 +62,15 @@ def login():
    
     usuario = Usuario.getEmail(data)
     print(usuario, "QUE CONTIENE USUARIO"*10)
-    if not bcrypt.check_password_hash(usuario[0]['password'], request.form['password']):
-        flash('Password invalido', 'invalid_psw')
-        return redirect('/')
     print(usuario, "EL USUARIO EXISTE?")
     if not usuario:
+        flash("Informacion no valida", "invalid_psw")
+        return redirect('/')
+    if not bcrypt.check_password_hash(usuario.password, request.form['password']):
+        flash('Password invalido', 'invalid_psw')
         return redirect('/')
 
-    session['userid'] = usuario[0]['id']
+    session['userid'] = usuario.id
     return redirect('/dashboard')
 
 @app.route("/enviarmensaje/<int:para_usuario_id>", methods=['POST'])
@@ -83,6 +84,7 @@ def enviarMensaje(para_usuario_id):
     validacion = Mensaje.validaciones_formulario_mensajes(request.form)
     if validacion == True:
         enviar_mensaje = Mensaje.enviarMensaje(data)
+        return redirect("/dashboard")
     return redirect("/dashboard")
 
 @app.route('/borrarmensaje/<int:id_mensaje>', methods=['GET'])
